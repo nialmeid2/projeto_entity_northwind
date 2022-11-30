@@ -1,0 +1,49 @@
+/* _content/Impactabank/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-sxz9xhe3im] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-sxz9xhe3im] {
+  color: #0077cc;
+}
+
+.btn-primary[b-sxz9xhe3im] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-sxz9xhe3im], .nav-pills .show > .nav-link[b-sxz9xhe3im] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-sxz9xhe3im] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-sxz9xhe3im] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-sxz9xhe3im] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-sxz9xhe3im] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-sxz9xhe3im] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}

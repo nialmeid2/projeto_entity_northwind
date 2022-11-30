@@ -1,0 +1,167 @@
+﻿@model Cliente
+
+@{
+    string formAction = Model.Alterando ? "Editar" : "Cadastrar";
+    string titulo = Model.Alterando ? "Seus dados cadastrais, fique à vontade para alterar o que precisar" : "Seja bem vindo ao nosso banco";
+    bool senhaRequerida = !Model.Alterando;
+}
+
+<div class="container px-3 py-5">
+
+    @if (ViewBag.Msg != null)
+    {
+        <div class="container msg-sucesso">
+            @ViewBag.Msg           
+        </div>
+    }
+
+    <h2>@titulo</h2>
+    <p>Preencha o formulário abaixo para @(Model.Alterando ? "alterar seus dados" : "se cadastrar")</p>
+
+    
+
+    <form asp-controller="Cliente" asp-action="@formAction" method="post" class="form-confirma-senha">
+        <div class="row">
+            <div class="col-md-6">                
+                <label asp-for="Nome">Nome</label>
+                <input type="text" asp-for="Nome" class="form-control" required />
+            </div>          
+            <div class="col-md-6">
+                <label asp-for="NomeSocial">Nome Social (Opcional)</label>
+                <input type="text" asp-for="NomeSocial" class="form-control" />
+            </div>            
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label asp-for="CPF">CPF</label>
+                <input type="text" asp-for="CPF" class="form-control" required/>
+            </div>           
+            <div class="col-md-2">
+                <label asp-for="Genero">Gênero</label>
+                <select asp-for="Genero" asp-items="Html.GetEnumSelectList<Genero>()" class="form-select" required>
+                    <option value="">Selecione: </option>
+                </select>
+            </div>         
+            <div class="col-md-4">
+                <label asp-for="FaixaSalarial">Faixa Salarial</label>
+                <select asp-for="FaixaSalarial" asp-items="Html.GetEnumSelectList<FaixaSalarial>()" class="form-select" required>
+                    <option value="">Selecione: </option>
+                </select>
+            </div>            
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-7">
+                <label asp-for="Logradouro">Logradouro</label>
+                <input type="text" asp-for="Logradouro" class="form-control" required placeholder="Rua da Consolação"/>
+            </div>   
+            <div class="col-md-2">
+                <label asp-for="Numero">Número do Endereço</label>
+                <input type="text" asp-for="Numero" class="form-control" required/>
+            </div>   
+            <div class="col-md-3">
+                <label asp-for="Complemento">Complemento (Opcional)</label>
+                <input type="text" asp-for="Complemento" class="form-control"/>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-2">
+                <label asp-for="UF">Estado</label>
+                <select asp-for="UF" asp-items="Html.GetEnumSelectList<UF>()" onchange="" class="form-select" required>
+                    <option value="">Selecione: </option>
+                </select>
+            </div>         
+            <div class="col-md-4">
+                <label asp-for="Municipio">Estado</label>
+                <select asp-for="Municipio.Id" id="Municipio" class="form-select" required>
+                    <option value="">Selecione: </option>
+                    @if (Model != null && Model.MunicipiosDaUf != null && Model.MunicipiosDaUf.Count > 0)
+                    {
+                        foreach (var m in Model.MunicipiosDaUf)
+                        {
+                            if (Model.Municipio != null && m.Id == Model.Municipio.Id)
+                            {
+                                <option value="@m.Id" selected>@m.Nome</option>
+                            } else {
+                                <option value="@m.Id">@m.Nome</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        
+
+        @if (Model.Alterando)
+        {
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <p>Só preencha a senha se quiser alterá-la.</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <p>Seu E-mail: @Model.Email</p>
+                </div>
+            </div>
+        } else
+        {
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <label asp-for="Email">E-mail</label>
+                    <input type="email" asp-for="Email" required class="form-control" placeholder="Digite seu e-mail"/>
+                </div> 
+                <div class="col-md-4">
+                    <label class="erro-email text-danger">@ViewBag.ErroEmail</label>
+                </div>
+            </div>
+        }
+
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label asp-for="Usuario.Senha">Senha</label>
+                @if (senhaRequerida) 
+                {
+                    <input type="password" asp-for="Usuario.Senha" required
+                            class="form-control" placeholder="Digite sua senha" value=""/>
+                } else
+                {
+                    <input type="password" asp-for="Usuario.Senha"
+                        class="form-control" placeholder="Digite sua senha" value=""/>
+                }
+            </div>         
+            <div class="col-md-4">
+                <label asp-for="Usuario.ConfirmarSenha">Confirmação de Senha</label>
+
+                @if (senhaRequerida)
+                {
+                    <input type="password" asp-for="Usuario.ConfirmarSenha" required
+                            class="form-control" placeholder="Confirme sua senha" value="" />
+                } else
+                {
+                    <input type="password" asp-for="Usuario.ConfirmarSenha" 
+                        class="form-control" placeholder="Confirme sua senha" value="" />
+                }
+            </div>
+            <div class="col-md-4">
+                <label class="erro-senha text-danger"></label>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-outline-primary">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </form>
+    @section Scripts  {
+        <script src="~/js/cadastro-cliente.js" asp-append-version="true"></script>
+        <script>
+            $(document).ready(function() {
+                setTimeout(() => {
+                    $('.msg-sucesso').fadeOut().remove(); // destruir mensagem depois de 3 segundo                    
+                }, 3000);
+            });
+        </script>
+    }
+</div>

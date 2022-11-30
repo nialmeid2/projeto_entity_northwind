@@ -1,0 +1,19 @@
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.msg-sucesso {
+    padding: 1em 1.5em;
+    background: #07501B;
+    color: white;
+    border-radius: .5em;
+    text-align: center;
+    margin: 1em 0;
+    font-size: 120%;
+}

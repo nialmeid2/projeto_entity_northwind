@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model string
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Bem vindo ao Impactabank</h1>
+</div>
+
+@if (Model != null) {
+    <div class="container msg-sucesso">
+        @Model
+    </div>
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="container px-3 py2">
+        <p><a asp-controller="Cliente" asp-action="Cadastrar">Clique aqui para abrir a sua conta</a></p>
+    </div>
+} else
+{
+    <div class="container px-3 py2">
+        <p>Clique Em uma das opções na barra de navegação para utilizar nosso banco</p>
+    </div>
+}
