@@ -8,7 +8,7 @@ body {
   margin-bottom: 60px;
 }
 
-.msg-sucesso {
+.msg-sucesso, .msg-erro {
     padding: 1em 1.5em;
     background: #07501B;
     color: white;
@@ -16,4 +16,53 @@ body {
     text-align: center;
     margin: 1em 0;
     font-size: 120%;
+}
+
+.msg-erro {
+    background: #5E020D;
+}
+
+[data-tooltip]:hover::before, [data-tooltip]:focus::before {
+    content: attr(data-tooltip);
+    line-height: 1.35;
+    position: absolute;
+    display: block;
+    padding: 1em;
+    background-color: #666;
+    color: #fff;
+    border-radius: .5em;
+    box-sizing: border-box;
+    width: 30ch;
+    bottom: calc(100% + 1.5em);
+    left: calc((100% - 30ch)/2);
+    z-index: 9999
+}
+
+@media(max-width: 800px) {
+    [data-tooltip]:hover::before, [data-tooltip]:focus::before {
+        max-width: 100%
+    }
+}
+
+[data-tooltip]:hover::after, [data-tooltip]:focus::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: #666;
+    transform: translate(-50%, 50%) rotate(45deg);
+    bottom: calc(100% + 1.5em);
+    left: calc(calc((100% - 30ch) / 2) + 15ch);
+    z-index: 9998
+}
+
+@media(max-width: 800px) {
+    [data-tooltip]:hover::after, [data-tooltip]:focus::after {
+        max-width: 100%
+    }
+}
+
+[data-tooltip]:hover, [data-tooltip]:focus {
+    position: relative
 }

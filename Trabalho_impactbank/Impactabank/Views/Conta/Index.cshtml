@@ -1,0 +1,214 @@
+﻿@using System.Globalization;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Cliente
+
+@{
+    string formAction = Model.Alterando ? "Editar" : "Cadastrar";
+    string titulo = Model.Alterando ? "Seus dados cadastrais, fique à vontade para alterar o que precisar" : "Seja bem vindo ao nosso banco";
+    bool senhaRequerida = !Model.Alterando;
+}
+
+<div class="container px-3 py-5">
+
+    @if (ViewBag.Msg != null)
+    {
+        <div class="container msg-sucesso">
+            @ViewBag.Msg           
+        </div>
+    }
+
+    @if (ViewBag.MsgErro != null)
+    {
+        <div class="container msg-erro">
+            @ViewBag.MsgErro           
+        </div>
+    }
+
+    <h2>Conta de @Model.Nome</h2>
+    
+    <section class="dados-conta">
+        <div class="row my-2">
+            <div class="col-md-2">
+                Saldo em conta
+            </div>
+            <div class="col-md-2">
+                @Model.Conta.Saldo.ToString("C", CultureInfo.CurrentCulture)
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-md-2">
+                Saldo em poupança
+            </div>
+            <div class="col-md-2">
+                @Model.Conta.SaldoPoupanca.ToString("C", CultureInfo.CurrentCulture)               
+            </div>
+        </div>
+    </section>
+    <section class="operacoes border-top">
+        <div class="row mt-3">
+            <div class="col-md-2">
+                Operações de depósito:
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#deposito-cc">
+                    Depositar em Conta Corrente
+                </button>               
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#deposito-poupanca">
+                    Depositar em Conta Poupança
+                </button>               
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-2">
+                Operações de Saque:
+            </div>
+            <div class="col-md-3">
+                @if (Model.Conta.Saldo > 0)
+                {
+                    <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#saque-cc">
+                        Sacar de Conta Corrente
+                    </button>
+                } else
+                {
+                    <button type="button" class="btn btn-outline-dark w-100" data-tooltip="Como seu Saldo em Conta Corrente é 0, não é possível sacar">
+                        Sacar de Conta Corrente
+                    </button>
+                }
+            </div>
+            <div class="col-md-3">
+                @if (Model.Conta.SaldoPoupanca > 0)
+                {
+                    <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#saque-poupanca">
+                        Sacar de Conta Poupança
+                    </button>
+                } else
+                {
+                    <button type="button" class="btn btn-outline-dark w-100" data-tooltip="Como seu Saldo em Conta poupança é 0, não é possível sacar">
+                        Sacar de Conta Poupança
+                    </button>
+                }
+            </div>
+        </div>
+    </section>
+
+    @{
+        IList<ExtratoOperacoes> operacoes = ViewBag.Ultimas10;
+        if (operacoes == null) 
+        {
+            operacoes = ViewBag.ExtratoCompleto;
+            <br />
+        }
+    }
+
+    @if (operacoes != null && operacoes.Count > 0)
+    {
+        <table id="extrato" class="border-top mt-5 w-100 table table-bordered">
+            <thead>
+                <tr>
+                    <th>Tipo de Operação</th>
+                    <th>Valor</th>
+                    <th>Data e Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ExtratoOperacoes e in operacoes)
+                {
+                    <tr>
+                        <td>
+                            <span class="w-100">
+                                @e.Tipo.ToString()
+                            </span>
+                        </td>
+                        <td>
+                            <span class="w-100">
+                                @e.Valor.ToString("C", CultureInfo.CurrentCulture)
+                            </span>
+                        </td>
+                        <td>
+                            <span class="w-100">
+                                @String.Format("{0:dd/MM/yyyy} às {0:HH:mm:ss}", e.DataHora)
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>            
+        </table>
+
+        @if (ViewBag.ExtratoCompleto == null) 
+        {
+            <a asp-action="ExtratoCompleto" asp-controller="Conta" class="mt-3">Extrato Completo</a>
+        } else
+        {
+            <a asp-action="Index" asp-controller="Conta" class="mt-3">Últimos 10</a>
+        }
+    }
+            
+</div>
+
+@{
+    var ids = new string[] { "deposito-cc", "deposito-poupanca", "saque-cc", "saque-poupanca" };
+    var titulos = new string[] { "Fazer Depósito em Conta Corrente", "Fazer Depósito em Conta Poupança",
+                    "Sacar de Conta Corrente", "Sacar de Conta Poupança" };
+    var actions = new string[] { "DepositarCC", "DepositarPoupanca", "SacarCC", "SacarPoupanca" };
+    var labels = new string[] { "Valor a Depositar", "Valor a Depositar", "Valor a Sacar", "Valor a Sacar" };
+    var botoes = new string[] { "Depositar", "Depositar", "Sacar", "Sacar" };
+    var maxes = new string[] { "", "", Model.Conta.Saldo.ToString(), Model.Conta.SaldoPoupanca.ToString() };
+
+}
+@for (int i = 0; i < ids.Length; i++) {
+
+    if (maxes[i] == "0")
+        continue;
+
+    <div class="modal fade" id="@ids[i]" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">@titulos[i]</h3>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="@actions[i]" asp-controller="Conta" method="post">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for"valor">@labels[i]</label>
+                                <input type="number" name="valor" min="0.01" max="@maxes[i]" step="0.01" class="form-control" required/>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-outline-primary">@botoes[i]</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-outline-dark">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts  {    
+    <script>
+        $(document).ready(function() {
+            setTimeout(() => {
+                $('.msg-sucesso, .msg-erro').fadeOut().remove(); // destruir mensagem depois de 3 segundo                    
+            }, 3000);            
+        });
+    </script>
+    @if (ViewBag.ExtratoCompleto != null)
+    {
+        <script>
+            $(document).ready(function() {
+                $("#extrato").DataTable();
+            });
+        </script>
+    }
+}

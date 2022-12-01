@@ -20,18 +20,25 @@ namespace Impactabank.Models
         [ForeignKey("Clientes")]
         public int ClienteId { get; set; }
 
-        public bool Sacar(double valor)
+        public bool Sacar(double valor, TipoOperacao tipoOperacao)
         {
-            if (valor > Saldo)
+            if (valor > (tipoOperacao == TipoOperacao.SaqueCC ? Saldo : SaldoPoupanca))
                 return false;
-            Saldo -= valor; // subtrai o valor do saldo
+            Saldo -= tipoOperacao == TipoOperacao.SaqueCC ? valor : 0; // subtrai o valor do saldo apenas qd for saqueCC
+            SaldoPoupanca -= tipoOperacao == TipoOperacao.SaquePoupanca ? valor : 0; // subtrai o valor do saldo
             return true;
         }
 
-        public void Depositar(double valor)
+
+        public bool Depositar(double valor, TipoOperacao tipoOperacao)
         {
-            Saldo += valor;
+            if (valor <= 0)
+                return false;
+            Saldo += tipoOperacao == TipoOperacao.DepositoCC ? valor : 0; // só soma qd for depósito de Conta Corrente
+            SaldoPoupanca += tipoOperacao == TipoOperacao.DepositoPoupanca ? valor : 0; // só soma qd for depósito de Conta Poupança
+            return true;
         }
+
 
 
     }

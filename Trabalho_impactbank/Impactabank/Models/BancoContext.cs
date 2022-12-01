@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Impactabank.Models
 {
@@ -13,6 +14,8 @@ namespace Impactabank.Models
 
         public DbSet<Usuario> Usuarios { get; set; }
 
+        public DbSet<ExtratoOperacoes> Extrato { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -21,5 +24,7 @@ namespace Impactabank.Models
                     .Build();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("impactabank"));
         }
+        
+
     }
 }
