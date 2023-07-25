@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\git projects\\estudos-cursos-e-afins\\Cursos\\_Impacta\\C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj": {}
+    "D:\\Coding\\git projects\\gitados - curso de C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj": {}
   },
   "projects": {
-    "D:\\git projects\\estudos-cursos-e-afins\\Cursos\\_Impacta\\C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj": {
+    "D:\\Coding\\git projects\\gitados - curso de C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\git projects\\estudos-cursos-e-afins\\Cursos\\_Impacta\\C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj",
+        "projectUniqueName": "D:\\Coding\\git projects\\gitados - curso de C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj",
         "projectName": "Impactabank",
-        "projectPath": "D:\\git projects\\estudos-cursos-e-afins\\Cursos\\_Impacta\\C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj",
-        "packagesPath": "C:\\Users\\Cliente\\.nuget\\packages\\",
-        "outputPath": "D:\\git projects\\estudos-cursos-e-afins\\Cursos\\_Impacta\\C#\\Trabalho_impactbank\\Impactabank\\obj\\",
+        "projectPath": "D:\\Coding\\git projects\\gitados - curso de C#\\Trabalho_impactbank\\Impactabank\\Impactabank.csproj",
+        "packagesPath": "C:\\Users\\nicol\\.nuget\\packages\\",
+        "outputPath": "D:\\Coding\\git projects\\gitados - curso de C#\\Trabalho_impactbank\\Impactabank\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Programs\\Visual Studio 2022 Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Cliente\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nicol\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -44,50 +46,17 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "BCrypt.Net-Core": {
-              "target": "Package",
-              "version": "[1.6.0, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.11, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[6.0.11, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.11, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.2, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     }
